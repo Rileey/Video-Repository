@@ -11,8 +11,6 @@ import { styled } from '@material-ui/core'
 import Tooltip from '@material-ui/core/Tooltip'
 // import Media from "react-media"
 import Media from '../../node_modules/react-media/index'
-import FastRewindIcon from '@material-ui/icons/FastRewind'
-import FastForwardIcon from '@material-ui/icons/FastForward';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import PauseIcon from '@material-ui/icons/Pause'
 import VolumeUpIcon from '@material-ui/icons/VolumeUp'
@@ -73,11 +71,11 @@ const PrettoSlider = styled(Slider)({
 
 const PlayerControls = forwardRef(({
   onPlayPause, 
-  playing, 
-  onRewind, 
-  onFastForward, 
+  playing,  
   muted, 
   onMute, 
+  onEnter,
+  onLeave,
   onvolumechange, 
   onVolumeSeekUp, 
   volume, 
@@ -94,18 +92,7 @@ const PlayerControls = forwardRef(({
 }, ref) => {
 
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handlePopover = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'playbackrate-popover' : undefined;
     return(
         <div>
              <div className="controls-wrapper" ref={ref}
@@ -123,11 +110,13 @@ const PlayerControls = forwardRef(({
                 zIndex: '1'
             }}
             >
-                <Grid container direction='row' alignItems='center' justifyContent='center'>
-                
+                <Grid container alignItems='center' justifyContent='flex-end'>
+                  <Button onClick={onChangeDisplayFormat} variant='text' style={{color:'#fff'}}>
+                    <Typography > {elapsedTime}</Typography>
+                  </Button>
                 </Grid>
                   
-                        <Grid container direction='row' alignItems='center' style={{marginTop: '70px'}} justifyContent='center'>
+                        <Grid container direction='row' alignItems='center' justifyContent='center'>
 
                 <IconButton onClick={onPlayPause} className='controlIcons' style={{fontSize: '2.5rem', margin: '0 50px'}} aria-label='rewind'>
                     {playing ? (<PauseIcon fontSize='inherit' className='controlIcons'/> ) : (<PlayArrowIcon fontSize='inherit' className='controlIcons'/>)}
@@ -136,30 +125,28 @@ const PlayerControls = forwardRef(({
                 </Grid>
 
 
-                <Grid container direction='row' alignItems='center' justifyContent='center' style={{display: 'flex', marginBottom: '30px'}}>
-                    <Grid item style={{display: 'flex'}}>
-                            <Button onClick={onChangeDisplayFormat} variant='text' style={{color:'#fff', marginRight: '16px', width: '90px'}}>
-                                <Typography > {elapsedTime}/{totalDuration}</Typography>
-                            </Button>
-                        <Grid container alignItems='center' justifyContent='center' direction='row'>
-                            {/* <IconButton onClick={onPlayPause} className='bottomIcons'>
-                                {playing? (<PauseIcon fontSize='large' className='bottomIcons'/>) : (<PlayArrowIcon fontSize='large' className='bottomIcons'/>)}
-                            </IconButton> */}
-
-                            <Box sx={{ width: 200 }} style={{display: 'flex'}}>
-                            {/* <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center" > */}
+                <Grid container direction='row' alignItems='center' justifyContent='flex-end' style={{display: 'flex', marginBottom: '10px'}}>
+                {/* <Grid item xs={10}>
+                      <PrettoSlider 
+                          min={0}
+                          max={100}
+                          value={played * 100}
+                          onChange={onSeek}
+                          onMouseDown={onSeekMouseDown}
+                          onChangeCommitted={onSeekMouseUp}
+                          ValueLabelComponent={(props)=>(
+                            <ValueLabelComponent{...props} value={elapsedTime}/>
+                            )}
+                          style={{color: '#fff'}}
+                          
+                      />
+                  </Grid> */}
+                    <Grid item  >
+                        <Grid container alignItems='center' direction='row'>
+                            <Box style={{display: 'flex'}}>
                             <IconButton onClick={onMute} className='bottomIcons'>
                                 {muted ? (<VolumeOffIcon fontSize='small' style={{marginTop: '-5px', color: 'white'}} className='bottomIcons'/>) : (<VolumeUpIcon fontSize='small' style={{marginTop: '-5px', color: 'white'}} className='bottomIcons'/>)}
                             </IconButton>    
-                                <Slider
-                                 aria-label="Volume"
-                                 defaultValue={1000}
-                                 value={volume * 100}
-                                 style={{color: '#fff', marginTop: '10px', padding: '7px 0', width: '50%'}}
-                                 onChange={onvolumechange}
-                                 onChangeCommitted={onVolumeSeekUp}
-                                  />
-                            {/* </Stack> */}
                             </Box>
 
                         </Grid>

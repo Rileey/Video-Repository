@@ -23,7 +23,8 @@
 
 .file-upload-s{
     margin-top: 10px;
-    font-size: 15px;
+    font-size: 11px;
+    width: 100px;
     margin-left: 10px;
 }
 
@@ -56,6 +57,7 @@
 
 .titleCloseBtn button {
     background-color: transparent;
+    color: #ff7e00;
     border: none;
     font-style: 25px;
     cursor: pointer;

@@ -10,10 +10,8 @@ import Navbar from '../components/navbar';
 import { AuthContext } from '../authContext/authContext';
 // import Video from '../components/video'
 import ProfileVideo from '../components/profileVideo'
-import Footer from '../components/footer';
 import ProfilePostModal from '../components/profilePostModal'
-import ProfileModal from '../components/profileModal'
-import sam from '../images/sam.JPG'
+import Media from "react-media"
 
 
 
@@ -25,6 +23,7 @@ const Profile = () => {
     const [hovered, setHovered] = useState(false)
     const [myPosts, setMyPosts] = useState([])
     const [show, setShow] = useState(false)
+    const [searchTerm, setSearchTerm] = useState("")
     const {id} = useParams()
 
     useEffect(() => {
@@ -37,6 +36,7 @@ const Profile = () => {
         fetchUser();
     }, [id])
 
+
     useEffect(() => {
         const getMyVideo = async() => {
             const res = await axios.get(`posts/user/${user.email}`)
@@ -46,67 +46,49 @@ const Profile = () => {
         getMyVideo()
     }, [user])
 
+
     useEffect(()=> {
         const getmyPost = async () => {
             const { data } = await axios.get(`/profile/posts/user/${user.email}`)
             setMyPosts(data)
-            console.log(data)
         }
         getmyPost()
     }, [user])
 
 
-    const handleHover = () => {
-        if (currentUser.email === user.email) {
-            setHovered(true)
-        } else if (currentUser.email !== user.email){
-            setHovered(false)
-        }
+    if (video.length === 0){
+        return null
     }
 
-    const handleOut = () => {
-        setHovered(false)
-    }
+    const arrLength = video.map((vid)=>vid.upvotes.length)
+    const totalUpvotes = arrLength.reduce((a, b) => a + b, 0)
 
     return(
         <>
-        <Navbar />
-        {
+        <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+        {/* {
                             show && (
                                 <ProfileModal
                                 //  post={post} 
                                 profilePicture={profilePicture}
                                  closeModal={setShow} show={show}/>
                             )
-                        }
+                        } */}
             <div className="me-container">
                 <div className="me-top">
                     <div className="me-left">
+                        <div className="left-top">
                         <div className="me-profile-img" >
-                        {
-                            currentUser && hovered ? (
-                                <div className="me-img-container-s"
-                                onMouseEnter={handleHover} 
-                                onMouseLeave={handleOut}
-                                onClick={(e)=>setShow(true)}
-                                >
-                            <img className="me-img" src={profilePicture?.profilePicture || "../stockphoto.jpeg"} alt="" 
-                            />
-                            <span className="blur"></span>
-                            <span className="blur-words">
-                              <strong>Edit</strong>
-                            </span>
-                        </div>
-                                ) : (
-                                <img className="me-img" src={profilePicture?.profilePicture || "../stockphoto.jpeg"} alt="" 
-                                onMouseEnter={handleHover} 
-                                onMouseLeave={handleOut}
-                                />    
-                            )
-                        }
+                            <img className="me-img" src={profilePicture?.profilePicture || "../stockphoto.jpeg"} alt="" />    
                         </div>
                         <div className="me-profile-names">
                             <span className="me-name">{user.username}</span>
+                        </div>
+                        </div>
+                        <div className="left-bottom">
+                        <div className="me-bottom">
+                        <span className="bio">{user.about}</span>
+                        </div>
                         </div>
                     </div>
                     <div className="me-right">
@@ -137,15 +119,13 @@ const Profile = () => {
                                <ArrowCircleUpRoundedIcon />
                            </div>
                            <div className="me-numbers">
-                                <span className="large-number">1k</span>
+                                <span className="large-number">{totalUpvotes}</span>
                                 <span className="small-caption">Upvotes</span>
                            </div> 
                         </div>
                     </div>
                 </div>
-                <div className="me-bottom">
-                        <span className="bio">{user.about}</span>
-                    </div>
+                
                 <div className="community-heade-r" >
                 <div className="community-bar">
                     <Link to="/timeline" style={{textDecoration: 'none', color: 'white'}}>
@@ -160,75 +140,15 @@ const Profile = () => {
                     </Link>
                 </div>
             </div>
-                <div className="analytics-overview-container">
-                    <div className="analytics-overview">
-                        <span className="analytics">
-                            Analytics Overview
-                        </span>
-                    </div>
-                    <div className="ana-dropdown-button">
-                    <div className="custom-select">
-                        <select className="select">
-                            <option value="0">The Last Week</option>
-                            <option value="1">The Last 30 Days</option>
-                            <option value="2">The Last 6 Months</option>
-                            <option value="3">The Last Year</option>
-                        </select>
-                    </div>
-                    </div>
-                </div>
-                <div className="me-data-container">
-                    <div className="me-data">
-                        <div className="card">
-                            <span className="card-title">
-                                2k
-                            </span>
-                            <span className="card-subtitle">
-                                Followers Gained in the past week
-                            </span>
-                        </div>
-                    </div>
-                    <div className="me-data">
-                    <div className="card">
-                            <span className="card-title">
-                                2
-                            </span>
-                            <span className="card-subtitle">
-                                Posts made in the past week
-                            </span>
-                        </div>
-                    </div>
-                    <div className="me-data">
-                    <div className="card">
-                            <span className="card-title">
-                                300
-                            </span>
-                            <span className="card-subtitle">
-                                Upvotes Gained in the past week
-                            </span>
-                        </div>
-                    </div>
-                    <div className="me-data">
-                    <div className="card">
-                            <span className="card-title">
-                                20
-                            </span>
-                            <span className="card-subtitle">
-                                Likes had in the past week
-                            </span>
-                        </div>
-                    </div>
-                </div>
+
                 <div className="me-posts-container">
-                    <div className="me-titles">
-                    <span className="my-posts">
-                        My Videos
-                    </span>
-                    <span className="line">
-                        
-                    </span>
-                    </div>
                     <div className="me-many-posts">
+                    <Media query = '(min-width: 950px)'>
+                  {
+                    matches => {
+                      return matches 
+                      ? (
+                        <>
                         {video.map((video)=> (
                             <Link to={`/profile/${user._id}/${video._id}`}>
                             <div key={video._id} className="me-content-container">
@@ -236,13 +156,23 @@ const Profile = () => {
                             </div>
                             </Link>
                         ))}
+                         </>
+                      ) : (
+                        <>
+                        {video.map((video)=> (
+                            <div key={video._id} className="me-content-container">
+                                 <ProfileVideo video={video} />
+                            </div>
+                        ))}
+                         </>
+                      )}}
+                      </Media>
                     </div>
                     <Routes >
-                        <Route exact path="/:id" element={<ProfilePostModal myPosts={myPosts} />}/>
+                        <Route exact path="/:id" element={<ProfilePostModal myPosts={myPosts} user={user} />} />
                     </Routes >
                 </div>
             </div>
-            <Footer />
         </>
     )
 }

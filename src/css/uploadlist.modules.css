@@ -1,6 +1,5 @@
 .upload-list{
-    /* width: 100%; */
-    margin-top: 30px;
+    margin-top: 0;
 }
 
 .uploadlistTitle {
@@ -15,12 +14,11 @@
 .upload-container {
     display: flex;
     position: relative;
-    margin-top: 10px;
-    padding: 30px;
+    padding: 5px 20px;
     width: max-content;
     transform: translateX(0px);
     transition: all 1s ease;
-    overflow-x: auto;
+    /* overflow-x: auto; */
 } 
 
 .upload-wrapper {
@@ -55,4 +53,10 @@
 
 .right {
     right: 0;
+}
+
+@media only screen and (max-width: 769px){
+    .upload-container {
+        padding: 10px;
+    }
 }

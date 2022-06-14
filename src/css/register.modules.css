@@ -61,6 +61,7 @@
     background-color: #ff7e00;
     text-align: center;
     padding: 7px 15px;
+    width: 75px;
     border: none;
     color: white;
     cursor: pointer;
@@ -79,14 +80,16 @@
 
 
 .log-login-form {
-    width: 50%;
-    height: 50px;
+    width: 65%;
+    align-items: center;
+    /* height: 50px; */
     /* border-radius: 10px; */
-    display: block;
+    display: flex;
     justify-content: space-between;
     background-color: transparent;
     align-items: center;
     /* border: 1px solid white; */
+    flex-direction: column;
 }
 
 .warning {
@@ -111,7 +114,10 @@
 /* } */
 
 .log-login-input {
-    margin-bottom: 10px;
+    margin: 10px auto;
+    width: 90%;
+    border: 1px solid white;
+    padding: 10px 10px;
     width: 70%;
     border: 1px solid white;
 }
@@ -123,13 +129,14 @@
 .logins-button {
     background-color: black;
     text-align: center;
+    padding: 10px;
+    margin: 10px 0;
     height: 100%;
-    flex: 3;
     border: 1px solid white;
     color: white;
     cursor: pointer;
     transition: 0.2s;
-    width: inherit;
+    width: fit-content;
 }
 
 .login-button:hover{
@@ -150,95 +157,6 @@
     font-weight: 100;
 }
 
-@media screen and (max-width: 915px) {
-    .log-login-form {
-        width: 50%;
-        height: 40px;
-        /* border-radius: 10px; */
-        display: block;
-        justify-content: space-between;
-        background-color: transparent;
-        align-items: center;
-        /* border: 1px solid white; */
-    }   
-    .log-login-input {
-        margin-bottom: 10px;
-        width: 100%;
-        border: 1px solid white;
-    }   
-
-    
-}
-
-
-
-
-@media only screen and (min-width: 0px) and (max-width: 450px) {
-    .intro > span {
-        font-size: 20px;
-        font-weight: 300;
-        padding: 0px 20px;
-        text-align: center;
-    }
-}
-
-@media only screen and (min-width: 451px) and (max-width: 915px) {
-    .intro > span {
-        font-size: 30px;
-        font-weight: 300;
-        padding: 0px 20px;
-        text-align: center;
-    }
-}
-
-@media only screen and (min-width: 916px) {
-    .intro > span {
-        font-weight: 300;
-        font-size: 40px;
-        padding: 0px 20px;
-        text-align: center;
-    }
-    .log-login-form {
-        width: 50%;
-        height: 40px;
-        /* border-radius: 10px; */
-        display: block;
-        justify-content: space-between;
-        background-color: transparent;
-        align-items: center;
-        /* border: 1px solid white; */
-    }  
-}
-
-@media only screen and (min-width: 917px) and (max-width:1000px){
-    .log-login-input {
-        margin-bottom: 10px;
-        width: 90%;
-        border: 1px solid white;
-    }
-}
-
-@media only screen and (min-width:1000px)  {
-    .log-login-input {
-        margin-bottom: 10px;
-        width: 90%;
-        border: 1px solid white;
-    }
-}
-
-@media only screen and (min-width: 0px) and (max-width: 313px) {
-    .sign-form-container {
-        margin-top: 70px;
-    }
-    .my-top-container{
-        flex-direction: column;
-        justify-content: center;
-    }
-    .my-signin-button {
-        margin-right: 0px;
-
-    }
-}
 
 /* 190 pixels and below */
 @media screen and (max-width: 190px) {
@@ -247,5 +165,83 @@
         margin: 0;
     }
 }
+
+@media screen and (max-width: 424px) { 
+    .login{
+        position: fixed;
+    }
+
+    /* .my-top-container {
+        position: fixed;
+    } */
+
+    .log-login-form {
+        position: fixed;
+        margin-top: 150px;
+    }
+    .intro > span {
+        font-size: 17px;
+    }
+    .log-login-input {
+        font-size: 13px;
+    }
+    input[type="email" i] {
+        font-size: 13px;
+    }
+    input[type="password" i] {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .log-login-form {
+        width: 100%;
+        height: 40px;
+        /* border-radius: 10px; */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: transparent;
+        align-items: center;
+        /* border: 1px solid white; */
+    }   
+    .log-login-input {
+        margin: 10px auto;
+        width: 90%;
+        border: 1px solid white;
+    
+    }   
+    .logins-button {
+        padding: 10px;
+        width: 93%;
+    }
+    .intro > span {
+        font-size: 25px;
+    }
+    .my-button {
+        padding: 4px 7px;
+    }
+
+    
+}
+
+@media only screen and (max-width: 916px) {
+    .intro > span {
+        font-weight: 300;
+        font-size: 20px;
+        padding: 0px 20px;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 917px) {
+    .intro > span {
+        font-size: 30px;
+    }
+}
+
+
+
+
 
 

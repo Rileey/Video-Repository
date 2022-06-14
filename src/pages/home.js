@@ -12,6 +12,7 @@ import UploadList from '../components/uploadlist'
 
 const Home = ({ type }) => {
 
+    const [searchTerm, setSearchTerm] = useState("")
     const [lists, setLists] = useState([]);
     const [genre, setGenre] = useState(null);
 
@@ -29,8 +30,10 @@ const Home = ({ type }) => {
     }, [type, genre])
     return(
         <div className="App">
-            <Navbar />
+            <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+            <div className="home-body">
             <Featured type={ type } setGenre={setGenre}/>
+            <div className="bottom-body">
             <Contentlist lists={lists}/>
             <UploadList />
             {lists.map((list) => (
@@ -38,6 +41,8 @@ const Home = ({ type }) => {
                 <List list={list}/>
                 </div>
             ))}
+            </div>
+            </div>
         </div>
     )
 }

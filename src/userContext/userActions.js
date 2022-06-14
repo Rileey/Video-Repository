@@ -12,17 +12,17 @@ export const getUsersFailure = () => ({
 })
 
 
-export const updateUsersStart = () => ({
-    type: 'UPDATE_USERS_START',
+export const updateUserStart = () => ({
+    type: 'UPDATE_USER_START',
 })
 
-export const updateUsersSuccess = (user) => ({
-    type: 'UPDATE_USERS_SUCCESS',
+export const updateUserSuccess = (user) => ({
+    type: 'UPDATE_USER_SUCCESS',
     payload: user
 })
 
-export const updateUsersFailure = () => ({
-    type: 'UPDATE_USERS_FAILURE',
+export const updateUserFailure = () => ({
+    type: 'UPDATE_USER_FAILURE',
 })
 
 

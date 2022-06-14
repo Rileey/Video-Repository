@@ -1,8 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useRef, useEffect } from 'react'
 import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
 import { ChatBubble, Favorite, FavoriteBorder, Home, Share, LocationOn, Person, Create, People, DashboardOutlined } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { Visibility, VisibilityOff } from '@material-ui/icons'
 import '../css/profilemodal.modules.css'
 import picture from '../images/stockphoto.jpeg'
 import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded';
@@ -14,49 +15,90 @@ import { AuthContext } from '../authContext/authContext';
 
 
 const Modal = ({closeModal, profilePicture}) => {
-
-    const { user } = useContext(AuthContext)
+    const [show, setShow] = useState(false)
+    const [show2, setShow2] = useState(false)
+    const [show3, setShow3] = useState(false)
+    const { user, error } = useContext(AuthContext)
     const [image, setImage] = useState({})
     const [person, setPerson] = useState({})
-    const [file, setFile] = useState(false)
+    const [message, setMessage] = useState('')
+    const [password, setPassword] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [loading, setLoading] = useState(false)
+    const [submitted, setSubmitted] = useState(false)
+    const [profile, setProfile] = useState([])
+
+// console.log(user.email, '-----richmond-----')
+
+
+    const handleShowHide = () => {
+        setShow(!show)
+    }
+
+    const handleShowHide2 = () => {
+        setShow2(!show2)
+    }
+
+    const handleShowHide3 = () => {
+        setShow3(!show3)
+    }
 
     const handleChange = (e) => {
         const value = e.target.value
         setPerson({...person, [e.target.name]: value})
     }
 
+    useEffect(() =>{
+        const getPerson = async () => {
+            const res = await axios.get(`/users/find/${user._id}`)
+            setProfile(res.data)
+            console.log(res.data)
+        }
+        getPerson()
+    }, [user._id])
+
+    if (image === {}) {
+        return null
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setSubmitted(true)
         setLoading(true)
+
              let data = new FormData();
 
             data.append('userId', user._id) 
-            if(person.username){
-                data.append('username', person.username)
+            if(person.newPassword) {
+            data.append('password', person.newPassword)
+            } else {
+                setMessage('Input the New Password')
             }
-            if(person.email) {
-            data.append('email', person.email)
+            if(person.confirmPassword) {
+            data.append('confirmPassword', person.confirmPassword)
+            } else {
+                setMessage('Confirm your password')
             }
-            if(person.about) {
-            data.append('about', person.about)
-            }
-            if (!image) {
-                data.append('profilePicture', person.profilePicture[0]?.profilePicture)
-            }else {
-            for (let i = 0; i < image.length; i++) {
-                data.append('profilePicture', image[i], image[i].name)
-            }
+            
+            
+            
             try {
+            if (person.newPassword !== person.confirmPassword) {
+                setMessage('Passwords do not match')
+                setLoading(false)
+            } else {
                 await axios.put(`/users/${user._id}`, data )
+                setMessage('Password has been changed')
                 setLoading(false)
                 window.location.reload()
+            }
+            
+                
             } catch (err) {
                 console.log(err);
             }
-        } 
-            
-    }
+    } 
 
     
     
@@ -66,33 +108,34 @@ const Modal = ({closeModal, profilePicture}) => {
                 <div className="titleCloseBtn">
                 <button onClick={() => closeModal(false)}> X </button>
                 </div>
-                <div className="modImage">
-                    <img src={profilePicture?.profilePicture || picture} alt="" className="mod-picture" />
-                    <input type="file" id='image' name="profilePicture" className='modd-image' accept= "image/png, image/jpeg" onChange={(e)=>{
-                        setImage(e.target.files)
-                        setFile(true)
-                    }}/>
-                    <div className="moddLogo">
-                        <CameraAltRoundedIcon />
-                    </div>
-                </div>
-                {
-                    file ? (
-                <span className="uploade-d">File Chosen</span>
-                ) : (null)
-                }
+                
                 <div className="mod-container">
+                <span className="message"><b>{message}</b></span>
                     <div className="mod-type">
-                        <label className="label">Your Name</label>
-                        <input type="text" name="username" id="" placeholder={"Change name from " +user.username + " ?"} className="mod-input" onChange={handleChange} />
+                        <label className="label">New Password</label>
+                        <div className="visinput">
+                        <input type={show2 ? 'text' : 'password'} name="newPassword" placeholder="New Password" className="p-mod-input" onChange={handleChange}/>
+                        {
+                                show2 ? (
+                                    <span className='visibility' onClick={handleShowHide2}><Visibility style={{fontSize: '15px'}}/></span>
+                                ) : (
+                                    <span className='visibility' onClick={handleShowHide2}><VisibilityOff style={{fontSize: '15px'}}/></span>
+                                )
+                            }
+                    </div>
                     </div>
                     <div className="mod-type">
-                        <label className="label">Your Email</label>
-                        <input type="text" name="email" id="" placeholder={"Change email from " +user.email + " ?"} className="mod-input" onChange={handleChange} />
+                        <label className="label">Confirm New Password</label>
+                        <div className="visinput">
+                        <input type={show3 ? 'text' : 'password'} name="confirmPassword" placeholder="Confirm New Password" className="p-mod-input" onChange={handleChange} />
+                        {
+                                show3 ? (
+                                    <span className='visibility' onClick={handleShowHide3}><Visibility style={{fontSize: '15px'}}/></span>
+                                ) : (
+                                    <span className='visibility' onClick={handleShowHide3}><VisibilityOff style={{fontSize: '15px'}}/></span>
+                                )
+                            }
                     </div>
-                    <div className="mod-type">
-                        <label className="label">About You</label>
-                        <input type="text" name="about" id="" placeholder={"Tell us about " +user.username } className="mod-input" onChange={handleChange} />
                     </div>
                 </div>
                 {

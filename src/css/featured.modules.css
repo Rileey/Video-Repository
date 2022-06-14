@@ -1,6 +1,6 @@
 .featured {
     display: flex;
-    height: 90vh;
+    height: 60vh;
     position: relative;
 }
 
@@ -9,12 +9,13 @@
     height: 100%;
     object-fit: cover;
     position: relative;
-    opacity: 0.6;
-    background: linear-gradient(
+    background-repeat: no-repeat;
+    background-size: cover;
+        /* background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0) 0%,
         rgba(0, 0, 0, 1) 100%
-    );
+    ); */
 }
 
 .featured-image-2 {
@@ -28,16 +29,16 @@
 
 .info {
     width: 90%;
+    margin-left: 20px;
     position: absolute;
-    left: 50px;
-    bottom: 100px;
+    bottom: 20px;
     color: white;
     display: flex;
     flex-direction: column;
 }
 
 .info > .film-title {
-    font-size: 100px;
+    font-size: 45px;
     font-weight: 800;
 }
 
@@ -45,9 +46,14 @@
     width: 250px;
 }
 
+.actions {
+    color: white;
+}
+
 .info > .description {
-    margin: 20px 0px;
-    width: 500px;
+    margin: 5px 0px;
+    width: 400px;
+    font-size: 13px;
 }
 
 .info > .genre {
@@ -69,6 +75,7 @@
 
 .buttons {
     display: flex;
+    margin: 20px 0;
 }
 
 .buttons > button {
@@ -169,24 +176,12 @@
     text-align: center;
 }
 
-@media screen and (max-width: 480px) {
-    .info > .film-title {
-        font-size: 30px;
-    }
-    .info > .description {
+@media only screen and (max-width: 920px){
+    .description {
         width: 250px;
-    }
-    .info {
-        width: 70%;
-        left: 30;
     }
 }
 
-@media screen and (max-width: 650px) {
-    .info{
-        left: 60px;
-    }
-}
 @media screen and (max-width: 899px) {
     .description {
         font-size: 15px;
@@ -194,24 +189,59 @@
     }
 }
 
-
-@media only screen and (min-width: 470px) and (max-width: 700px){
+@media only screen and (max-width: 769px){
+    .featured {
+        height: 60vh;
+    }
+    .buttons > button {
+        padding: 5px 10px;
+    }
+    .actions {
+        font-size: 11px;
+    }
     .info > .film-title {
-        font-size: 50px;
+        font-size: 30px;
+    }
+    .info > .description {
+        margin: 0;
+        font-size: 13px;
+    }
+    .info > .rated {
+        margin: 10px 0;
+        width: 400px;
+        font-size: 13px;
+    }
+    .info {
+        left: 0;
+        bottom: 30px;
+    }
+}
+
+
+
+@media only screen and (max-width: 700px){
+    .info > .film-title {
+        font-size: 30px;
     }
     .description {
         width: 250px;
     }
 }
 
-
-
-@media only screen and (min-width: 700px) and (max-width: 1000px){
+@media screen and (max-width: 425px) {
     .info > .film-title {
-        font-size: 80px;
+        font-size: 20px;
     }
-    .description {
+    .info > .description {
         width: 250px;
+        font-size: 11px;
+    }
+    .info > .rated {
+        font-size: 11px;
+    }
+    .info {
+        width: 80%;
+        left: 30;
     }
 }
 

@@ -17,6 +17,7 @@ import Community from './pages/community';
 import Profile from './pages/profile';
 // import Fullpost from './components/fullpost';
 import PostModal from './components/postModal'
+import Account from './components/account';
 // import { Modal } from './components/modal';
 
 
@@ -34,16 +35,6 @@ function App() {
       <Route path="/register" element={!user ? <Register /> : <Navigate to="/" /> } />
       <Route path="/signin" element={!user ? <Login /> : <Navigate to="/" /> } />
       <Route path="/success" element={<SuccessPage />} />
-        {/* </Route>
-        <Route exact path="/register" >
-          { !user ? <Register /> : <Navigate to="/" />}
-        </Route> */}
-        {/* <Route exact path="/signin" >
-          { !user ? <Login /> : <Navigate to="/"/>}
-        </Route> */}
-        {/* <Route exact path="/success">
-           <SuccessPage />
-        </Route>   */}
         {user && (
           <>
           <Route path="/movies" element={<Home type='Movies' />} />
@@ -55,6 +46,7 @@ function App() {
           <Route path="/content/watch/:id" element={<Watch />} />
           <Route path="/content/:id" element={<ContentDescription />} />
           <Route path="/profile/user/*" element={<PostModal />} /> 
+          <Route path="/account/:id" element={<Account />} />
           </>
         )}
         {/* {user && (

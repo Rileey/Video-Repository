@@ -1,0 +1,206 @@
+.account-head {
+    padding: 20px 50px 20px 50px;
+    background-color: black;
+    /* height: 100vh; */
+    color: white
+}
+
+.account-body {
+    margin-top: 100px;
+}
+
+.account {
+    font-size: 25px;
+    margin: 10px 0;
+}
+
+.account-image {
+    height: 100px;
+    width: 100px;
+    border: 1px solid white;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.account-btn {
+    height: 30px;
+    background-color: #ff7e00;
+    border: none;
+    font-weight: 800;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modd-image {
+    position: absolute;
+    color: #ff7e00;
+    opacity: 0;
+    width: 50px;
+    top: 0px;
+    padding: 40px;
+    left: -14px;
+    z-index: 999;
+}
+
+.modd-image:hover {
+    cursor: pointer;
+}
+
+.moddLogo {
+    position: absolute;
+    left: 38px;
+    top: 40px;
+    color: rgba(255, 255, 255, 0.466);
+    transition: 0.4s;
+}
+
+.mod-input {
+    display: flex;
+    padding: 10px 15px;
+    color: #fff;
+    width: 90%;
+    background: black;
+    border: none;
+}
+
+.cap {
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+}
+
+.uploade-d{
+    font-size: 10px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.go-back {
+    background-color: #ff7e00;
+    border: none;
+    font-weight: 800;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.image-caption-s {
+    display: flex;
+    align-items: center;
+}
+
+.change-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.joined {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+.notice-details {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.billing {
+    margin: 10px 0;
+}
+
+.user-notice {
+    display: flex;
+    flex-direction: column;
+}
+
+hr {
+    border: 0.5px solid white;
+    width: 100%;
+}
+
+.use-r {
+    font-size: 15px;
+}
+
+.user-action {
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+}
+
+.mastercard {
+    height: 40px;
+    width: fit-content;
+    padding: 0 10px;
+}
+
+.user-information {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+    padding: 20px 30px;
+    border-radius: 10px;
+}
+
+
+@media only screen and (max-width: 425px) {
+    .account-head {
+        padding: 20px;
+    }
+
+    .cap {
+        display: flex;
+        flex-direction: column;
+        width: 70px;
+    }
+
+    .uploade-d{
+        font-size: 6px;
+    }
+
+    .moddLogo {
+        left: 28px;
+        top: 30px;
+    }
+
+    .account-image {
+        height: 80px;
+        width: 80px;
+    }
+
+    .account {
+        font-size: 15px;
+    }
+
+    .notice-details {
+        font-size: 14px;
+    }
+
+    .billing {
+        font-size: 13px;
+    }
+
+    .use-r {
+        font-size: 13px;
+    }
+
+    .user-action {
+        font-size: 13px;
+    }
+}
+
+@media only screen and (max-width: 319px) {
+    .account-head {
+        position: fixed;
+    }
+}

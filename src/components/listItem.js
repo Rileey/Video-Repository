@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import '../css/listItem.modules.css'
 import { useNavigate } from 'react-router-dom'
 import 'react-lazy-load-image-component/src/effects/opacity.css'
+import Media from "react-media"
 
 const ListItem = ({index, item}) => {
 
@@ -81,10 +82,17 @@ const ListItem = ({index, item}) => {
     }, [item, history])
 
     return (
+<>
+        <Media query = '(min-width: 769px)'>
+                  {
+                    matches => {
+                      return matches 
+                      
+                      ? (
         <Link to={`/content/${caption._id}`}>
         <div className="list-item-container">
         <div className='listItem'
-        style={{left: isHovered && index * 225 -50 + index * 15}}
+        style={{left: isHovered && index * 220 -20 + index * 3}}
         onMouseEnter={()=> setIsHovered(true)} 
         onMouseLeave={()=> setIsHovered(false)}
         >
@@ -136,6 +144,31 @@ const ListItem = ({index, item}) => {
         </div>
         </div>
         </Link> 
+                      ) : (
+                        <Link to={`/content/${caption._id}`}>
+                        <div className="list-item-container">
+                        <div className='listItem-sm'>
+                            {
+                                isLoading ? (
+                                    <img
+                                    effect="opacity"
+                                    className='list-image-two' 
+                                    src='./loading.gif'
+                                    // style={{position: 'relative', right: '0px', width: '100%', height: '100%'}}       
+                                    alt="" />
+                                    ) : (
+                                        <img className="list-image"
+                                        src={movie} 
+                                        alt="" />
+                                    )
+                            }
+                        </div>
+                        </div>
+                        </Link> 
+                      )}}
+                      </Media>
+                      
+        </>
     )
 }
 

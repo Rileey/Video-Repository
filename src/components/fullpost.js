@@ -4,6 +4,7 @@ import { useState, useEffect, useContext, useRef } from 'react'
 import axios from 'axios'
 import { ChatBubble, Favorite, ArrowUpwardOutlined, FavoriteBorder, Home, Share, LocationOn } from '@material-ui/icons'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import ArrowCircleDownRoundedIcon from '@mui/icons-material/ArrowCircleDownRounded';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
 import {useParams,Link, useNavigate} from 'react-router-dom'
@@ -30,12 +31,11 @@ const formated = (seconds) => {
     return `${mm}:${ss}`
 }
 
-let count = 0
 
 const Fullpost = ({user, post}) => {
 
-    // console.log(post)
-
+    
+// console.log('$$$$$$Fullpost$$$$$$', post)
 
     const history = useNavigate()
     const [click, setClick] = useState(false)
@@ -46,8 +46,9 @@ const Fullpost = ({user, post}) => {
     const [timeDisplayFormat, setTimeDisplayFormat] = useState('normal')
     const [isUpvoted, setIsUpvoted] = useState(false)
     const [profilePicture, setProfilePicture] = useState('')
-    const { user:currentUser, dispatch } = useContext(AuthContext)
-    const [followUser, setFollowUser] = useState(currentUser.following?.includes(post._creator?._id))
+    const 
+    {user:currentUser, dispatch } = useContext(AuthContext)
+    const [followUser, setFollowUser] = useState(user.following?.includes(post._creator?._id))
     const [like, setLike] = useState(post.likes?.length)
     const [upvote, setUpvote] = useState(post.upvotes?.length)
     const [vid, setVid] = useState([])
@@ -63,19 +64,18 @@ const Fullpost = ({user, post}) => {
 
     const {playing, muted, volume, playbackRate, played, seeking} = state
     const playerRef = useRef(null)
-    const playerContainerRef = useRef(null)
+    // const playerContainerRef = useRef(null)
     const controlsRef = useRef(null)
 
     const handlePlayPause = () => {
         setState({...state, playing: !state.playing})
     }
 
-    const handleRewind = () => {
-        playerRef.current.seekTo(playerRef.current.getCurrentTime() - 10)
-    }
+    const handleProgress = (changeState) => {
 
-    const handleFastForward = () => {
-        playerRef.current.seekTo(playerRef.current.getCurrentTime() + 10)
+        if(!state.seeking){
+            setState({...state, ...changeState})
+        }
     }
 
     const handleMute = () => {
@@ -88,6 +88,19 @@ const Fullpost = ({user, post}) => {
             volume: parseFloat(newValue/100), 
             muted: newValue === 0 ? true:false
         })
+    }
+
+    const handleSeekChange = (e, newValue) => {
+        setState({...state, played: parseFloat(newValue/100)})
+    }
+
+    const handleSeekMouseDown = (e) => {
+        setState({...state, seeking: true})
+    }
+
+    const handleSeekMouseUp = (e, newValue) => {
+        setState({...state, seeking: false})
+        playerRef.current.seekTo(newValue/100)
     }
 
     const handleChangeDisplayFormat = () => {
@@ -121,13 +134,17 @@ const Fullpost = ({user, post}) => {
     : `-${formated(duration - currentTime)}`;
     const totalDuration = formated(duration)
 
-    useEffect(() => {
-        setIsLiked(post.likes?.includes(currentUser._id))
-    }, [currentUser._id, post.likes])
 
+    // check if user has liked the post already
     useEffect(() => {
-        setIsLiked(post.upvotes?.includes(currentUser._id))
-    }, [currentUser._id, post.upvotes])
+        setIsLiked(post.likes?.includes(user._id))
+    }, [user, post])
+
+
+    // check if user has upvoted the post already
+    useEffect(() => {
+        setIsUpvoted(post.upvotes?.includes(user._id))
+    }, [user, post])
 
     useEffect(() => {
         const followUser = async () => {
@@ -135,12 +152,13 @@ const Fullpost = ({user, post}) => {
            setFollowUser(user.following.includes(user?._id))
         }
         followUser()
-    }, [post._creator?._id, user, user?._id])
+    }, [post, user])
 
-const newArr = []
-console.log(newArr, 'new Array------')
 
-// console.log(post?.video)
+
+    useEffect(() => {
+        setIsLiked(post.likes?.includes(user._id))
+    }, [user._id, post.likes])
 
     useEffect(() => {
         const getUser = async () => {
@@ -151,14 +169,25 @@ console.log(newArr, 'new Array------')
         //   const full = data._posts.map((post) => (newArr.push(post.video[0].video)))
         const arr = data._posts.map(v => v.video[0].video)
         setVid(arr)
-          console.log(arr, '-----------------')
-        //   console.log(newArr, 'deji------')
-        //    setVid(...newArr)
-        //    console.log('array', newArr)
-        //    console.log('video', vid)
         }
         getUser()
-    }, [post._creator]);
+    }, [post]);
+
+    // useEffect(() => {
+    //     const getVid = async () => {
+    //        const { data } = await axios.get(`/posts`)
+    //        setVid(data.data.map(v=>v.video[0].video))
+    //     //    setVid(data._posts[0]?.video[0].video) 
+        
+    //     //   const full = data._posts.map((post) => (newArr.push(post.video[0].video)))
+    //     // const arr = data._posts.map(v => v.video[0].video)
+    //     // setVid(arr)
+    //     //   console.log(arr, '-----------------')
+    //     console.log(data.data.map(v => v))
+    //     }
+    //     getVid()
+        
+    // }, []);
 
 
     // useEffect(()=> {
@@ -174,12 +203,12 @@ console.log(newArr, 'new Array------')
         try { 
             if (followUser) {
                 await axios.put(`/users/${post._creator?._id}/unfollow`,{
-                    userId: currentUser._id,
+                    userId: user._id,
                 })
                 dispatch({type: 'UNFOLLOW', payload: post._creator?._id})
             } else {
                 await axios.put(`/users/${post._creator?._id}/follow`,{
-                    userId: currentUser._id,
+                    userId: user._id,
                 })
                 dispatch({type: 'FOLLOW', payload: post._creator?._id})
             }
@@ -192,19 +221,12 @@ console.log(newArr, 'new Array------')
 
     const handleLike = async () => {
             try {
-                await axios.put(`/posts/${post._id}/like`, {
-                    userId: currentUser._id,
+                const res = await axios.put(`/posts/${post._id}/like`, {
+                    userId: user._id,
                 })
-                if(!isLiked && post.likes.includes(currentUser._id)){
-                    setClick(true)
-                    setLike(like + 1)
-                }
-                if(isLiked && post.likes.includes(currentUser._id)){
-                    setClick(false) 
-                    setLike(like - 1)
-                } 
-                window.location.reload()
-                setClick(true)
+                console.log(res.data)
+                
+                setLike(isLiked ? like - 1 : like + 1)
                 setIsLiked(!isLiked)
                 
             } catch (err) {
@@ -216,17 +238,12 @@ console.log(newArr, 'new Array------')
 
     const handleUpvote = async () => {
         try {
-            await axios.put(`/posts/${post._id}/upvote`, {
-                userId: currentUser._id,
+            const res = await axios.put(`/posts/${post._id}/upvote`, {
+                userId: user._id,
             })
-            if(!isUpvoted){
-                setUpvote(upvote + 1)
-            }
-            if(isUpvoted){
-                setUpvote(upvote - 1)
-            } 
-            window.location.reload()
-            setIsUpvoted(!isUpvoted)          
+            console.log(res.data)
+            setUpvote(isUpvoted ? upvote - 1 : upvote + 1)
+                setIsUpvoted(!isUpvoted)          
         } catch (err) {
             console.log(err)
         }
@@ -236,19 +253,22 @@ console.log(newArr, 'new Array------')
 const handleIcon = async() => {
     try {
         await axios.delete(`/posts/${post._id}`)
-        history(`/profile/${currentUser._id}`)
+        history(`/profile/${user._id}`)
         window.location.reload()
         
     } catch (err) {
         console.log(err)
     }
 }
+console.log('post creator username:',post._creator.username, 'user username: ',currentUser.username )
+// console.log('---mr rileythehuman--')
+// console.log('user: ', user)
+// console.log('post: ', post)
 
 
 
 return(
     <>
-   
         <div className="fullpost-container" 
         style={{width: '100vw'}}
         >
@@ -260,12 +280,13 @@ return(
                     {/* <video id=""className="fullpost-img" src={vid} alt="new stuff" type="mp4" controls/> */}
                     <ReactPlayer
                     ref={playerRef}
-                    url={vid} 
+                    url={post.video[0]?.video} 
                     playing={playing} 
                     muted={muted}
                     volume={volume}
                     playbackRate={playbackRate}
-                    // onProgress={handleProgress}
+                    style={{backgroundColor: 'black'}}
+                    onProgress={handleProgress}
                     width='100%'
                     height='100%'
                     />
@@ -273,11 +294,11 @@ return(
             {show && (
                 <PostControl
                 // film={film}
-                // ref={controlsRef}
+                ref={controlsRef}
                 onPlayPause={handlePlayPause}
                 playing={playing}
-                onRewind={handleRewind}
-                onFastForward={handleFastForward}
+                // onRewind={handleRewind}
+                // onFastForward={handleFastForward}
                 muted={muted}
                 onMute={handleMute}
                 onvolumechange={handleVolumeChange}
@@ -286,9 +307,9 @@ return(
                 playbackRate={playbackRate}
                 onPlaybackRateChange={handlePlaybackRateChange}
                 played={played}
-                // onSeek={handleSeekChange}
-                // onSeekMouseDown={handleSeekMouseDown}
-                // onSeekMouseUp={handleSeekMouseUp}
+                onSeek={handleSeekChange}
+                onSeekMouseDown={handleSeekMouseDown}
+                onSeekMouseUp={handleSeekMouseUp}
                 elapsedTime={elapsedTime}
                 totalDuration={totalDuration}
                 onChangeDisplayFormat={handleChangeDisplayFormat}
@@ -309,7 +330,7 @@ return(
                                
                             </div>
                             <div className="person-info-right">
-                                {post._creator?.email === currentUser.email && (
+                                {post._creator.username === currentUser.username && (
                                     <>
                                     {
                                         isHovered ? (
@@ -362,20 +383,20 @@ return(
                         <div className="fullpost-engagement">
                             <div className="fullpost-social">
                                 {
-                            !click ? (
+                            !like ? (
                                 <FavoriteBorder style={{fontSize:"50px", margin: "0 10px"}} onClick={handleLike}/>
                             ) : (
                                 <Favorite style={{fontSize:"50px", margin: "0 10px", color: 'red'}} onClick={handleLike}/>
                             )
                             }
                                 <span className="likes">
-                                    {post.likes?.length}
+                                    {like}
                                 </span>
                             </div>
                             <div className="fullpost-social">
                                 <ArrowCircleUpIcon style={{fontSize:"50px", margin: "0 10px"}} onClick={handleUpvote}/>
                                 <span className="upvotes">
-                                {post.upvotes?.length}
+                                {upvote}
                                 </span>
                             </div>
                         </div>

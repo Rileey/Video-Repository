@@ -1,5 +1,4 @@
 import { BackspaceOutlined } from '@material-ui/icons'
-
 import React, { useEffect, useState, useRef } from 'react'
 import { Link, 
     // useLocation 
@@ -14,6 +13,11 @@ import Media from "react-media"
 
 
 const format = (seconds) => {
+
+    
+
+    
+
     if (isNaN(seconds)){
         return '00:00'
     }
@@ -21,6 +25,7 @@ const format = (seconds) => {
     const hh = date.getUTCHours()
     const mm = date.getUTCMinutes()
     const ss = date.getUTCSeconds().toString().padStart(2, '0')
+    
     if (hh){
         return `${hh}:${mm.toString().padStart(2, '0')}:${ss}`
     }
@@ -32,10 +37,12 @@ let count = 0
 
    
 const Watch = () => {
-
+    
+    // console.log(window.screen.orientation.angle)
+    const getOrientation = () => window.screen?.orientation?.type
 
     const params = useParams();
-
+    const [orientation, setOrientation] = useState(getOrientation())
     const [showDetails, setShowDetails] = useState(false)
     const [video, setVideo] = useState([])
     const [film, setFilm] = useState([])
@@ -46,9 +53,10 @@ const Watch = () => {
         playbackRate: 1.0,
         played: 0,
         seeking: false,
+        // landscape: window?.screen?.orientation?.type,
     })
     const [timeDisplayFormat, setTimeDisplayFormat] = useState('normal')
-    const {playing, muted, volume, playbackRate, played, seeking} = state
+    const {playing, muted, volume, playbackRate, played, landscape, seeking} = state
     const playerRef = useRef(null)
     const playerContainerRef = useRef(null)
     const controlsRef = useRef(null)
@@ -89,9 +97,6 @@ const Watch = () => {
         setState({...state, playbackRate: rate})
     }
 
-    // const toggleFullScreen = () => {
-    //     screenfull.toggle(playerContainerRef.current)
-    // }
 
     const handleProgress = (changeState) => {
 
@@ -217,7 +222,10 @@ const Watch = () => {
            className="playwrapper"
            onMouseMove={handleMouseMove}
            >
-            <ReactPlayer 
+
+                { 
+                    orientation && (
+                        <ReactPlayer 
             ref={playerRef}
             url={video.video} 
             playing={playing} 
@@ -229,6 +237,9 @@ const Watch = () => {
             height='100%'
             // style={{position: 'absolute', top: '0', left: '0', backgroundColor: 'black'}}
             />
+                    )
+                }
+            
 
             <div className="overlay">
                 {

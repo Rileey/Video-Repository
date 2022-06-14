@@ -8,6 +8,7 @@
     width: 325px;
     height: 160px;
     position: relative;
+    z-index: 999;
     top: -80px;
     left: -50px;
     transition: ease-in-out 0.3s;

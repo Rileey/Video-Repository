@@ -25,6 +25,12 @@ const Modal = ({closeModal}) => {
 
     }
 
+    if (video === {}) {
+        return null
+    }
+
+
+
     const handleSubmit = async (e) => {
         setIsLoading(true)
         e.preventDefault();
@@ -60,13 +66,14 @@ const Modal = ({closeModal}) => {
                 <div className="bodyy" >
                     <div className="upload-body">
                         <input type="button" value="Choose Video" className="upload" />
-                        <input type="file" id='video' name="video" className='videoplayer' accept="video/mp4" onChange={(e)=>{
+                        <input type="file" id='video' name="video" className='videoplayer' accept="video/*" onChange={(e)=>{
                             setVideo(e.target.files)
+                            console.log(e.target.files[0]?.name)
                             setIsChosen(true)
                             }}/>
                         {
                             isChosen ? (
-                                <span className="file-upload-s">File chosen</span>
+                                <span className="file-upload-s">{video[0]?.name}</span>
                             ) : (
                                 null
                             )

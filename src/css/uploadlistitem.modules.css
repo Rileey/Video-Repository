@@ -1,9 +1,9 @@
 .upload-list-item {
-    width: 220px;
-    height: 300px;
+    width: 140px;
+    height: 170px;
     background-color: #000;
     color: #fff;
-    margin-right: 35px;
+    margin-right: 10px;
     cursor: pointer;
     position: relative;
     transition: 0.2s;
@@ -20,20 +20,20 @@
 
 .vid-container > video {
     width: 100%;
-    height: 300px;
-    /* object-fit: cover; */
+    height: 170px;
+    object-fit: cover;
     transition: 0.3s;
-    border: 1px solid white;
+    border: 1px solid black;
     border-radius: 15px;
     background-color: #201d1d;
 }
 
 .vid-overlay {
     background: rgba(0, 0, 0, 0.493);
-    width: 100%;
-    height: 300px;
+    width: 101%;
+    height: 100%;
     position: absolute;
-    bottom: 3px;
+    bottom: 5px;
     border-radius: 15px;
 }
 
@@ -90,4 +90,18 @@
     top: 43%;
     left: 15%;
     transition: 0.1s;
+}
+
+@media only screen and (max-width: 769px){
+    .upload-list-item {
+        width: 110px;
+        height: 150px;
+        margin-right: 10px;
+    }
+
+    .vid-container > video {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
 }

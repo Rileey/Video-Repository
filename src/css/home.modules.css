@@ -1,7 +1,6 @@
  .App {
      background-color: #000;
      overflow: hidden;
-     margin-bottom: 100px;
  }
 
  .h1 {
@@ -18,3 +17,23 @@
     display: block;
     text-align: center;
  }
+
+ .home-body{
+    position: relative;
+ }
+
+ .bottom-body {
+   position: relative;
+   bottom: 30px;
+}
+ /* .bottom-body {
+    position:absolute;
+    bottom: 30
+ } */
+
+@media only screen and (max-width: 768px) {
+   .bottom-body {
+      position: relative;
+      bottom: 25px;
+   }
+}

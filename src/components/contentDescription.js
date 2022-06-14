@@ -8,6 +8,7 @@ import '../css/film.modules.css'
 // import List from './list'
 import Footer from './footer'
 import '../css/featured.modules.css'
+import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import Navbar from './navbar'
 import Contentlist from './contentlist'
 import {useParams} from 'react-router-dom'
@@ -66,6 +67,7 @@ const [image, setImage] = useState('')
      return (
         <>
         <Navbar />
+        <div className="content-summary">
         <div className='featured' >
              <LazyLoadImage
              effect="opacity" 
@@ -77,33 +79,36 @@ const [image, setImage] = useState('')
             />
             <div className="info">
             <span className="film-desc-title">{movie.title}</span>
-            <div className="film-details">
-                        <span className="ul">
-                        <p>Genre: <span>{movie.genre}</span></p>
-                        <p>Director: <span>{movie.director}</span></p>
-                        <p>Duration: <span>{movie.duration}</span></p>
-                        <p>Year: <span>{movie.year}</span></p>
-                        <p>Rated: <span>{movie.ageLimit}</span></p>
-                        </span>
-                </div>
+            <Link to={`/content/watch/${movie.content[0]?._id}`}>
+                <button className="info-btn"><PlayArrowRoundedIcon />Play</button>
+            </Link>
             </div>
 
              </div>
         <div className='film-container' >
-             
-            
-            <div className='title'>
-                <h1> {movie.title}</h1>
-            </div>
+            <div className="content-grid">
             <div className="abouts-container">
+            <div className="film-details">
+                        <span className="p-span">{movie.year}</span>
+                        <span className="p-span">Rated: <span className='rated-border'>+{movie.ageLimit}</span></span>
+            </div>
+                
+                
+            </div>
+            <div className="content-inffo">
+                <span className="p-span">{movie.genre}</span>
+            </div>
                 <div className="film-description">
                     <span >
                         {movie.description}
                     </span>
                 </div>
-                
+                <span className="p-span directed">Directed by: <span> {movie.director}</span></span>
             </div>
-            {/* <div className="banner"></div> */}
+            <div className="trailer">
+                <span>Trailer</span>
+                {/* <button className="episodes">Episodes</button> */}
+            </div>
             <div className="section-2">
                 <div className="film-content-container">
                 
@@ -120,9 +125,12 @@ const [image, setImage] = useState('')
                         
                         <div className="desk">
                             <span className="new-title">{mov.title}</span>
-                            <span className='c-span'>{mov.duration}</span>
                             <span className='c-span'>{mov.description}</span>
                         </div>
+                        <div className="duration p-span">
+                            {/* {movie.duration} */}
+                            1h
+                            </div>
                         </>
 
                      </div>
@@ -138,7 +146,7 @@ const [image, setImage] = useState('')
                 
             </div>
             <Contentlist movie={movie} />
-            <Footer/>
+        </div>
         </div>
         </>
     )

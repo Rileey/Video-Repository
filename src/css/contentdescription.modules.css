@@ -8,25 +8,63 @@
     background-color: #000;
     position: relative;
     opacity: 0.9;
+    padding: 0 250px;
+}
+
+.film-desc-title {
+    margin-left: 230px;
+    font-size: 50px;
+    font-weight: 800;
+    text-align: left;
+}
+/* .film-details > span > .p-span{ 
+    font-size: 19px;
+    font-weight: 800;
+    margin: 5px 0;
+}  */
+
+
+.p-span {
+    color: white;
+    margin-right: 15px;
+    font-size: 15px;
+}
+
+.rated-border {
+    font-size: 13px;
+    border: 1px solid white;
+    padding: 2px;
+}
+
+.content-inffo {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .abouts-container{
     display: grid;
     grid-template-rows: 1fr;
-    padding-bottom: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     background-color: black;
     color: white;
 }
 
-
-.film-description{
-    width: 70%;
-    margin: 0 auto;
+.directed{
+    display: flex;
+    font-size: 15px;
+    justify-content: end;
+    align-items: center;
 }
 
-.film-details{
-    width: 70%;
-    margin: 0 auto;
+.trailer {
+    color: white;
+    margin-bottom: 10px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 film-details > span > p{ 
@@ -34,15 +72,46 @@ film-details > span > p{
     font-weight: 800;
 }
 
+/* .episodes {
+    background-color: black;
+    border: 1px solid white;
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+} */
+
+.info-btn {
+    background-color: #ff7e00;
+    border: none;
+    padding: 1px 15px;
+    font-size: 15px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100px;
+    margin-left: 230px;
+    display: flex;
+    align-items: center;
+}
+
 
 .film-description > span{ 
-    font-size: 23px;
+    font-size: 15px;
+    color: white;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 20px;
 }
 
 .section-2 {
     display: flex;
-    margin: 0 auto;
-    width: 90%;
+    /* padding: 30px 0; */
+    width: 100%;
+    /* margin: 20px 0; */
 }
 
 .banner {
@@ -52,31 +121,41 @@ film-details > span > p{
     margin: 0 auto;
 }
 
+.ul {
+    display: flex;
+    flex-direction: column;
+}
+
 .c-span {
-    font-size: 17px;
+    font-size: 15px;
+    margin: 5px 0;
     font-weight: 400;
 }
 
 .film-content-container {
     overflow-y: scroll;
-    height: 600px;
     width: 100%;
     display: flex;
     flex-direction: column;
+    border-top: 0.5px solid white;
+    border-bottom: 0.5px solid white;
+}
+
+.film-content-container:hover {
+    background-color: rgb(54, 54, 54);
 }
 
 .img {
     display: flex;
-    align-items: center;
     position: relative;
-    margin: 10px 29px 10px 45px;
-    border-radius: 15px;
+    padding: 20px;
 }
 
 .featured-jumbotron {
     position: fixed;
     height: 100%;
     width: 100%;
+    object-fit: cover;
 }
 
 .glow:hover {
@@ -96,6 +175,13 @@ film-details > span > p{
     flex-direction: column;
 }
 
+.duration {
+    justify-content: center;
+    display: flex;
+    /* align-items: center; */
+    font-size: 12px;
+}
+
 .img > span {
     color: white;
     display: flex;
@@ -110,38 +196,25 @@ film-details > span > p{
 .desk {
     font-weight: 200;
     width: 100%;
-    height: 250px;
     color: white;
     display: flex;
     flex-direction: column;
-    padding: 0px 40px;
-    justify-content: space-around;
+    padding: 0px 10px;
     transition: 0.2s;
- 
-}
-
-.desk:hover {
-    color: #ff7e00;
-    transition: 0.2s;
-}
-
-.desk:hover> .new-title {
-    color: #ff7e00;
-    transition: 0.2s;
+    justify-content: center;
 }
 
 .new-title {
     color: white;
-    font-size: 40px;
-    font-weight: 400;
+    font-size: 15px;
+    font-weight: 800;
+    margin: 5px 0;
 }
 
 .glow {
-    height: 100%;
-    width: 350px;
-    margin: 30px 0;
+    height: 120px;
+    width: 250px;
     transition: 0.2s;
-    border-radius: 10px;
     object-fit: cover;
 }
 
@@ -152,71 +225,201 @@ ul > li {
 }
 
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1024px){
     .img {
         display: flex;
-        flex-direction: column;
+        /* flex-direction: column; */
     }
-   
-} 
-
-
-@media screen and (min-width: 0px) and (max-width: 359px) {
-    .film-details > span > p{ 
-        font-size: 15px;
-        font-weight: 800;
-    }  
-    .film-details {
-        justify-content: center;
-        align-items: center;
-    }
-    .film-desc-title {
-        font-size: 40px;
-        font-weight: 800;
-    }
-}
-
-@media screen and (min-width: 360px) and (max-width: 899px) {
-    .film-desc-title {
-        font-size: 50px;
-        font-weight: 800;
-        text-align: center;
-    }
-    .film-details > span > p{ 
-        font-size: 15px;
-        font-weight: 800;
-    }  
-}
-
-@media screen and (min-width: 900px){
-    .film-desc-title {
-        font-size: 80px;
-        font-weight: 800;
-        text-align: center;
-    }
-    .film-details > span > p{ 
+    .film-details > span > .p-span{ 
         font-size: 19px;
         font-weight: 800;
     }  
+
+    .film-container {
+        padding: 0 150px;
+    }
+
+    .film-desc-title {
+        margin-left: 120px;
+    }
+
+    .info-btn {
+        margin-left: 120px;
+    }
+}
+
+@media screen and (max-width: 768px) { 
+    .film-desc-title {
+        font-size: 40px;
+        text-align: left;
+    }
+
+    .film-container {
+        padding: 0 50px;
+    }
+
+    .film-desc-title {
+        margin-left: 30px;
+    }
+
+    .info-btn {
+        margin-left: 30px;
+    }
+
+    .p-span {
+        font-size: 12px;
+    }
+
+    .film-description > span {
+        font-size: 12px;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .glow {
+        width: 35%;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .glow {
+        height: 90px;
+        width: 130px;
+    }
+
+    .desk {
+        padding: 0 10px;
+    }
+
+    .new-title {
+        font-size: 12px;
+    }
+
+    .img {
+        padding: 10px;
+    }
+
+    .c-span {
+        font-size: 12px;
+    }
+
+}
+
+
+@media screen and (max-width: 425px) {
+    .film-desc-title {
+        font-size: 28px;
+        text-align: left;
+        margin-left: 0;
+    }
+
+    .info-btn {
+        margin-left: 0;
+    }
+
+    .film-container {
+        padding: 0;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-inffo {
+        align-items: start;
+        padding-left: 20px;
+        margin: 10px 0;
+    }
+
+    .directed {
+        justify-content: start;
+    }
+
+    .trailer {
+        margin-left: 20px;
+    }
+
+    .film-description {
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .directed {
+        margin-left: 20px;
+        display: flex;
+        font-size: 13px;
+        margin-top: 20px;
+    }
+
+    .p-span {
+        color: white;
+        margin-right: 15px;
+        font-size: 13px;
+    }
+    
+    .film-details {
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+
+    .abouts-container {
+        padding-bottom: 0;
+    }
+
+    .film-description > span {
+        font-size: 13px;
+    }
+
+    .section-2 {
+        width: 100%;
+    }
+
+    .img {
+        padding: 10px;
+    }
+
+    .glow {
+        width: 120px;
+        height: 74px;
+    }
+
+    .desk {
+        padding: 0 10px;
+    }
+
+    .c-span {
+        font-size: 9px;
+    }
+
+    .new-title {
+        font-size: 9px;
+    }
+
+}
+
+@media screen and (max-width: 300px) {
+    .film-container {
+        position: fixed;
+    }
+}
+
+
+
+/* @media screen and (max-width: 300px) {
+    .film-details > span > .p-span{ 
+        font-size: 15px;
+        font-weight: 800;
+    }  
+
+    .film-desc-title {
+        font-size: 23px;
+        font-weight: 800;
+    }
 }
 
 @media screen and (min-width: 601px) and (max-width: 970px) {
     .film-description > span {
         font-size: 20px;
     }
-}
-
-@media screen and (min-width: 431px) and (max-width: 600px) {
-    .film-description > span {
-        font-size: 18px;
-    }
-}
-
-@media screen and (max-width: 431px) {
-    .glow {
-        width: 250px;
-    }
-    .film-description > span {
-        font-size: 15px;
-    }
-}
+} */

@@ -13,45 +13,25 @@
     width: 500px;
     height: 500px;
     border-radius: 12px;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 0.5px solid white;
+    justify-content: space-between;
+    background-color: black;
+    box-shadow: rgba(173, 173, 173, 0.35) 0px 5px 15px;
     display: flex;
     flex-direction: column;
     padding: 25px;
 }
 
-.modd-image {
-    position: absolute;
-    color: #ff7e00;
-    opacity: 0;
-    top: 5px;
-    padding: 40px;
-    left: -30px;
-    z-index: 999;
-}
-
-.modd-image:hover {
-    cursor: pointer;
-}
-
 .modImage {
     position: relative;
     transition: 0.4s;
-    width: min-content;
     cursor: pointer;
-}
-
-.moddLogo {
-    position: absolute;
-    left: 43px;
-    top: 40px;
-    color: rgba(255, 255, 255, 0.466);
-    transition: 0.4s;
 }
 
 .label {
     font-size: 12px;
-
+    color: white;
+    margin: 10px;
 }
 
 .mod-picture{
@@ -60,11 +40,6 @@
     border: 5px solid #ff7e00;
     border-radius: 50%;
     object-fit: cover;
-}
-
-.uploade-d{
-    font-size: 12px;
-    margin-left: 15px;
 }
 
 
@@ -81,13 +56,32 @@
 .mod-type {
     /* border: 1px solid black; */
     padding: 0 10px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
 }
 
-.mod-input {
-    display: flex;
-    padding: 10px 15px;
+.p-mod-input {
+    outline: none;
+    padding: 10px 20px;
+    background-color: black;
+    border-bottom: 0.5px solid white;
+    border-top: none;
+    border-left: none;
     width: 90%;
-    margin: 10px auto;
+    border-right: none;
+    color: white;
+}
+
+.message {
+    color: white
+}
+
+.visinput {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
 }
 
 .end {
@@ -113,4 +107,20 @@
     box-shadow: -1px 1px 7px -1px rgba(0,0,0,0.67);
     -webkit-box-shadow: -1px 1px 7px -1px rgba(0,0,0,0.67);
     -moz-box-shadow: -1px 1px 7px -1px rgba(0,0,0,0.67);
+}
+
+@media only screen and (max-width: 425px){
+    .modalBackgroun-d {
+        align-items: end;
+    }
+
+    .modalContaine-r {
+        height: auto;
+    }
+}
+
+@media only screen and (max-width: 319px){
+    .modalContaine-r {
+        position: fixed;
+    }
 }

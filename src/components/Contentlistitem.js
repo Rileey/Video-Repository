@@ -15,10 +15,6 @@ const Contentlistitem = ({ card }) => {
             <img
             src={card.image[0].image}
             alt="" />
-            {/* {isHovered && ( */}
-            {/* // <video className="contentlistVideo" src={trailer} autoPlay={true} loop/>  */}
-            {/* )} */}
-                <span className='content-title'>{card.title}</span>
         </div>
     )
 }

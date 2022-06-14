@@ -41,8 +41,8 @@ const Contentlistitem = ({upload}) => {
                     style={{
                         fontSize: '50px',
                         position: "absolute",
-                        bottom: '42%',
-                        left: '39%',
+                        bottom: '35%',
+                        left: '32%',
                     }}
                     />
                     <div className="vid-overlay"></div>

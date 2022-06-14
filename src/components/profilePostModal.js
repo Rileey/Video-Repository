@@ -15,22 +15,30 @@ import { useLocation } from "react-router-dom"
 
 
 
-const ProfilePostModal = ({closeModal,
+const ProfilePostModal = ({user,
   myPosts
     }) => {
     const history = useNavigate();
     const {id} = useParams()
-    const { user } = useContext(AuthContext)
     const [post, setPost] = useState([])
     // const [myPosts, setMyPosts] = useState([])
+
+    
+
 
     useEffect(()=> {
         const getPost = async () => {
             const { data } = await axios.get(`/posts/find/${id}`)
-            setPost(data.getOnePost)
+            if (data.getOnePost) {
+              return setPost(data.getOnePost)
+            } 
         }
         getPost()
     }, [id])
+
+    if (post.length === 0) {
+      return null
+    }
 
 
 const backArrow = () => {
@@ -48,6 +56,7 @@ const backArrow = () => {
 
     setPost(myPosts[currentPostIndex]);
   }
+  history(`/profile/${user._id}/${post._id}`)
 };
 
 const forwardArrow = () => {
@@ -67,7 +76,9 @@ const forwardArrow = () => {
     console.log('currentPostIndex', currentPostIndex);
 
     setPost(myPosts[currentPostIndex]);
+    
   }
+  history(`/profile/${user._id}/${post._id}`)
 };
 
     
@@ -89,7 +100,7 @@ const forwardArrow = () => {
                 <div class="modalContainer-1">
                     <div className="titleCloseBtn-1">
                     <button onClick={(e) => {
-                        history(-1)
+                        history(`/profile/${user?._id}`)
                         e.stopPropagation()
                         }}> X </button>
                     </div>

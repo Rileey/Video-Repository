@@ -15,7 +15,7 @@ import { useLocation } from "react-router-dom"
 
 
 
-const PostModal = ({closeModal,
+const PostModal = ({
      posts
     }) => {
     const location = useLocation()
@@ -28,11 +28,18 @@ const PostModal = ({closeModal,
     useEffect(()=> {
         const getPost = async () => {
             const { data } = await axios.get(`/posts/find/${id}`)
-            setPost(data.getOnePost)
+            if (data.getOnePost) {
+              return setPost(data.getOnePost)
+            } 
         }
         getPost()
         
     }, [id])
+
+    if (post.length === 0) {
+      return null
+    }
+
 
 
 const backArrow = () => {
@@ -46,35 +53,49 @@ const backArrow = () => {
 
   if (currentPostIndex > 0) {
     currentPostIndex--;
-    console.log('currentPostIndex', currentPostIndex, post._id);
+    // console.log('currentPostIndex', currentPostIndex, post._id);
 
     history(`/community/${post._id}`)
     setPost(posts[currentPostIndex]);
+    
   }
 };
 
 const forwardArrow = () => {
-  let currentPostId = post._id;
-  let currentPostIndex = 0;
-
-  currentPostIndex = posts.findIndex(
+  
+  let previousPostId = post._id;
+  // console.log(post, 'post', posts, 'posts')
+  let previousPostIndex = 0;
+  previousPostIndex = posts.findIndex(
     (postData, index) => { 
-      console.log('code can be annoying', postData, postData._id, currentPostId)
-    return postData._id === currentPostId
+      // console.log('prevPostData', postData,)
+      if (previousPostIndex < posts.length - 1) {
+        previousPostIndex = previousPostIndex + 1;
+        const currentPostIndex = previousPostIndex
+        
+        // console.log(currentPostIndex, 'current post index', postData._id, 'previousPostId', 
+        // // postData, 'newPostId'  
+        // )
+        // console.log('currentPostIndex', currentPostIndex, previousPostId);
     
+        
+        setPost(posts[currentPostIndex]);
+    
+    
+    
+        // return postData._id
+        
+      }
+      // history(`/community/${postData._id}`)
+      return postData._id === previousPostId
 }
   );
 
+  history(`/community/${post._id}`)
 
 
-  if (currentPostIndex < posts.length - 1) {
-    currentPostIndex = currentPostIndex + 1;
-    console.log('currentPostIndex', currentPostIndex, currentPostId);
 
-    history(`/community/${post._id}`)
-    setPost(posts[currentPostIndex]);
-    
-  }
+  
 };
 
     
@@ -96,7 +117,7 @@ const forwardArrow = () => {
                 <div class="modalContainer-1">
                     <div className="titleCloseBtn-1">
                     <button onClick={(e) => {
-                        history(-1)
+                        history('/community')
                         e.stopPropagation()
                         }}> X </button>
                     </div>

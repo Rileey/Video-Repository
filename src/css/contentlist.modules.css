@@ -7,15 +7,14 @@
     /* background-color: #ff7e00; */
     padding: 5px 15px;
     color: #fff; 
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 500;
-    margin-left: 50px;
 }
 
 .content-container {
     display: flex;
     margin-top: 10px;
-    padding: 30px;
+    padding: 5px 20px;
     width: max-content;
     transform: translateX(0px);
     transition: all 1s ease;
@@ -54,4 +53,32 @@
 
 .right {
     right: 0;
+}
+
+@media only screen and (max-width: 769px){
+    .content-list{
+        margin-top: 10px;
+    }
+    .contentlistTitle {
+        font-size: 11px;
+        margin-left: 10px;
+        display: block;
+        padding: 0;
+    }
+
+    .info > .film-title {
+        font-size: 30px;
+    }
+
+    .content-container {
+        margin: 0;
+        padding: 5px 10px;
+        overflow-x: hidden;
+    }
+    .content-list-item {
+        width: 100px;
+        height: 120px;
+        margin-right: 5px;
+        border-radius: 5px;
+    }
 }

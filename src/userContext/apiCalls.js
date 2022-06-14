@@ -1,6 +1,6 @@
 import axios from "axios";
 // import { deleteMoviesSuccess, deleteMoviesFailure, deleteMoviesStart } from "./movieActions";
-import { deleteUsersFailure, deleteUsersStart, deleteUsersSuccess, getUsersFailure, getUsersStart, getUsersSuccess, updateUsersFailure, updateUsersStart, updateUsersSuccess } from "./userActions";
+import { deleteUsersFailure, deleteUsersStart, deleteUsersSuccess, getUsersFailure, getUsersStart, getUsersSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from "./userActions";
 
 
 export const getUsers = async (dispatch) => {
@@ -17,8 +17,8 @@ export const getUsers = async (dispatch) => {
     }
 }
 
-export const updateUsers = async (dispatch, id, users) => {
-    dispatch(updateUsersStart());
+export const updateUser = async (dispatch, id, users) => {
+    dispatch(updateUserStart());
 
     try {
         const res = await axios.put('/users/' + id, users,{
@@ -26,9 +26,9 @@ export const updateUsers = async (dispatch, id, users) => {
                 token: 'Bearer '+ JSON.parse(localStorage.getItem('user')).accessToken 
             }
         });
-        dispatch(updateUsersSuccess(res.data))
+        dispatch(updateUserSuccess(res.data))
     } catch (err) {
-        dispatch(updateUsersFailure())
+        dispatch(updateUserFailure())
     }
 }
 

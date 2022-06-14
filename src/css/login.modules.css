@@ -61,7 +61,7 @@
 }
 
 .log-form {
-    width: 80%; 
+    /* width: 80%;  */
     height: 400px;
     padding: 30px;
     border: 1px solid white;
@@ -89,6 +89,7 @@
     position: absolute;
     right: 15px;
     top: 8px;
+    color: white;
 }
 
 .visibility:hover {
@@ -206,9 +207,6 @@
         align-items: center;
         width: 60%;
     }
-    .log-form > input {
-        height: 25px;
-    }
     .sign-in{
         font-size: 20px;
     }
@@ -226,20 +224,17 @@
     }
 }
 
-@media only screen and (min-width: 0px) and (max-width: 359px) {
+@media only screen and (max-width: 555px) {
     .log-container {
         color: white;
         align-items: center;
-        width: 60%;
-    }
-    .log-form {
-        height: 250px;
-    }
-    .log-form > input {
-        height: 25px;
+        width: 100%;
     }
     .signup-span {
         font-size: 15px;
+    }
+    .log-form {
+        border: none;
     }
     .sign-in{
         font-size: 20px;

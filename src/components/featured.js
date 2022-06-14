@@ -4,13 +4,10 @@ import { InfoOutlined,
 import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
-// import React, { useState, useEffect } from 'react' 
 import { Link } from 'react-router-dom'
 import '../css/featured.modules.css'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-// import 'react-lazy-load-image-component/src/effects/blur.css'
 import 'react-lazy-load-image-component/src/effects/opacity.css'
-// import 'react-lazy-load-image-component/src/effects/black-and-white.css'
 
 const Featured = ({type, setGenre}) => {
 
@@ -71,17 +68,17 @@ const Featured = ({type, setGenre}) => {
             )}
 
     {!isHovered ? (
-            <LazyLoadImage
-            effect="opacity" 
-            height='100%'
-            width='100%'
-            className='featured-image'
-            src={imagee.image}
-            alt="" 
-            />
+            <div 
+            className="featured-image"
+            style={{backgroundImage: `linear-gradient(to bottom, transparent, #000000), url(${imagee.image})`, objectFit: 'cover'}}>
+
+            </div>
     ) : (
                 <>
-            <video className="featured-image-2" src={trailer} autoPlay={true} loop />
+            <video className="featured-image-2"
+            src={trailer} 
+            autoPlay={true} 
+            loop />
             </>
             )}
             
@@ -103,13 +100,14 @@ const Featured = ({type, setGenre}) => {
                  <div className="buttons">
                     <button className="play">
                     <Link to={`/content/watch/${video}`} style={{textDecoration: 'none', color: 'white',display: 'flex', alignItems: 'center'}}>
-                        <span>Watch Now</span>
+                        <span className='actions'>Watch Now</span>
                     </Link>
                     </button>
-                    <button className="more-info" onMouseEnter={()=> setIsClicked(true)} onClick={()=> setIsClicked(false)}>
+                    <button className="more-info" 
+                    onClick={()=> isClicked ? setIsClicked(false): setIsClicked(true)}>
 
-                        <InfoOutlined />
-                        <span style={{marginLeft: '5px'}}>Info</span>
+                        <InfoOutlined style={{width: '0.5em',height: '0.7em', color: 'black'}} />
+                        <span className='actions' style={{marginLeft: '5px'}}>Info</span>
                     </button>
                 </div> 
             </div>

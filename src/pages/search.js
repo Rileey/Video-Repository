@@ -4,19 +4,19 @@ import Navbar from '../components/navbar'
 import '../css/search.modules.css'
 import SearchItem from '../components/searchItem'
 import SearchBar from '../components/searchBar'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams, creareSearchParams, useLocation } from 'react-router-dom'
 import { useDebounce } from 'use-debounce';
 import { MovieContext } from '../Context/movieContext/movieContext'
 import { getMovies } from '../Context/movieContext/apicalls'
 
 const Search = () => {
     const history = useNavigate()
+    
     // const [movies, setMovies] = useState([])
     const { movies, dispatch } = useContext(MovieContext)
     const [searchTerm, setSearchTerm] = useState("")
     const [searchParams, setSearchParams] = useSearchParams()
     // const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
-
 
     useEffect(() => {
         getMovies(dispatch)
@@ -26,6 +26,7 @@ const Search = () => {
         e.preventDefault()
         history(`/search?q=${searchTerm}`)
         setSearchTerm(e.target.value);
+        setSearchTerm(e.target.value)
         
     }
 
@@ -44,7 +45,7 @@ const Search = () => {
       <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <div className="search-background">
       <div className="search">
-        <input className="searchs-input" type="text" name="" placeholder="Search Movies, Directors, Descriptions." id="" onChange={handleFilter} />
+        <input className="searchs-input" type="text" name="" placeholder="Search..." id="" onChange={handleFilter} />
       </div>
     <div className='search-container'>
         <div className="search-list-container"
